@@ -1,0 +1,89 @@
+.container {
+    display: flex;
+    padding-left: 30px;
+    padding-right: 50px;
+    justify-content: space-between;
+  }
+  
+  .menu {
+    position: relative; 
+  }
+  
+  .menu button {
+    padding: 10px;
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .dropdown {
+    position: absolute; /* https://nscworld.net/2020/12/27/position%EC%9D%98-relatve%EC%99%80-absolute-%EC%9D%B4%EA%B2%83%EB%A7%8C-%EC%95%8C%EB%A9%B4-%EC%9D%B4%ED%95%B4%EB%90%A8/ */
+    top: 100%;
+    left: -10%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #FCFBF1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    z-index: 2;
+  }
+  
+  .dropdown li {
+    padding: 10px;
+  }
+
+  .dropdown li a{
+    color: black;
+  }
+  
+  .dropdown li:hover {
+    background-color: #ddd;
+  }
+
+  /* mobile mode */
+ @media (max-width: 768px) {
+    
+      .container {
+        display: block;
+      }
+      .menu{
+        width: 100%;
+      }
+      .menu button {
+        padding-left: 10%;
+        background-color: white;
+        font-size: 20px;
+        width: 100%;
+      }
+      .menu button:hover{
+        color:red;
+      }
+
+      .dropdown {
+        z-index: 2;
+      }
+
+      .dropdown-m {
+        display: block;
+        width: 100%;
+        padding-left: 43%;
+        font-size: 20px;
+        border-color: black ;
+        animation: expandDropdown 0.3s ease-out; /* Add animation for smooth transition */
+      }
+      
+      @keyframes expandDropdown {
+        from {
+          max-height: 0;
+          opacity: 0;
+        }
+        to {
+          max-height: 200px; /* Adjust the value as needed */
+          opacity: 1;
+        }
+      }
+      
+}

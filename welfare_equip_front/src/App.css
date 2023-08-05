@@ -1,0 +1,60 @@
+/* App.css */
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between; /* 좌우 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #333;
+}
+
+.navbar a:hover {
+  color: #007bff;
+}
+
+/* 좌측 메뉴들 스타일 */
+.left-menu {
+  display: flex;
+  align-items: center;
+}
+
+/* 각 Link 요소들 사이에 간격 추가 */
+.left-menu a:not(:last-child) {
+  margin-right: 20px;
+}
+
+/* 우측 메뉴들 스타일 */
+.right-menu {
+  display: flex;
+  align-items: center;
+}
+
+/* 각 Link 요소들 사이에 간격 추가 */
+.right-menu a:not(:last-child) {
+  margin-right: 20px;
+}
+
+
+/* mobile mode */
+ @media (max-width: 768px) {
+  .left-menu {
+    font-size: 10px;
+    align-items: flex-start; /* 좌측 정렬 */
+  }
+
+  /* .left-menu a:not(:last-child) { // .left-menu중 a태그 마지막요소를 제외한 것들 
+    margin-left: 1px;
+  } */
+
+  .right-menu {
+    font-size: 10px;
+    align-items: flex-start; /* 좌측 정렬 */
+  }
+
+} 
