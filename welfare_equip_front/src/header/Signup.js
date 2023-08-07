@@ -6,6 +6,55 @@ import '../css/header/signup.css'
 
 const Signup = () => {
 
+  const [inputs, setInputs] = useState({
+    member_div: "",
+    member_id: "",
+    member_pw: "",
+    password_answer: "",
+    member_name: "",
+    member_addr1: "",
+    member_addr2: "",
+    member_addr3: "",
+    ph1: "",
+    ph2: "",
+    ph3: "",
+})
+
+  const {
+      member_div, member_id, member_pw, password_answer,
+      member_name, member_addr1, member_addr2, member_addr3,
+      ph1, ph2, ph3
+  } = inputs;
+
+  const onChange = e => {
+    setInputs({
+        ...inputs,
+        [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // 서버로 회원가입 정보를 전송하는 코드를 작성합니다.
+    // 예를 들면, axios 또는 fetch를 사용하여 서버로 POST 요청을 보낼 수 있습니다.
+    fetch('/user/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({user_id:member_id}), // JSON 데이터를 문자열로 변환하여 body에 설정합니다.
+    })
+    .then(res => {
+      if(res.status === 200) {
+          alert("회원가입이 완료되었습니다.")
+          window.location.href = "/"
+      }else if(res.status === 400) {
+          alert("로그인이 필요한 서비스 입니다.")
+          
+      }
+  }).catch(err => console.log("err: ", err))
+  };
+
   // 우편번호 팝업창 상태 관리
   const [isPopupOpen, setIsPopupOpen] = useState(false)
  
@@ -87,9 +136,9 @@ const Signup = () => {
   
 
   return (
-
+  console.log(member_id),
     <>
-    <form>
+    <form onSubmit={handleSubmit}>
     <div style={style}>
       <div>
         <h1>회원가입</h1>
@@ -106,10 +155,10 @@ const Signup = () => {
           <span style={{marginLeft:"10px"}}>회원구분</span><span style={{color:"red"}}>*</span>
         </div>
         <div style={{display:"inline-block", marginLeft:"100px"}}>
-          <input type='radio' checked value="1"></input><span>개인회원</span>
+          <input name='member_div' type='radio' checked value="1"></input><span>개인회원</span>
         </div>
         <div style={{display:"inline-block", marginLeft:"50px"}}>
-          <input type='radio' checked value="0"></input><span>사업자회원</span>
+          <input name='member_div' type='radio' value="0"></input><span>사업자회원</span>
         </div>
       </div>
       <hr />
@@ -124,7 +173,7 @@ const Signup = () => {
           <span style={{marginLeft:"10px"}}>아이디</span><span style={{color:"red"}}>*</span>
         </div>
         <div style={{display:"inline-block", marginLeft:"100px"}}>
-          <input id="idInput"></input>
+          <input id="member_id" name='member_id' value={member_id} onChange={onChange}></input>
         </div>
       </div>
       <hr />
@@ -133,7 +182,7 @@ const Signup = () => {
           <span style={{marginLeft:"10px"}}>비밀번호</span><span style={{color:"red"}}>*</span>
         </div>
         <div style={{display:"inline-block", marginLeft:"86px"}}>
-          <input></input>
+          <input id='member_pw' name='member_pw' value={member_pw} onChange={onChange}></input>
         </div>
       </div>
       <hr />
@@ -174,7 +223,7 @@ const Signup = () => {
           <span style={{marginLeft:"10px"}}>비밀번호 확인답변</span><span style={{color:"red"}}>*</span>
         </div>
         <div style={{display:"inline-block", marginLeft:"27px"}}>
-          <input style={{width:"280px"}}></input>
+          <input style={{width:"280px"}} id='password_answer' name='password_answer' value={password_answer} onChange={onChange}></input>
         </div>
       </div>
       <hr />
@@ -183,7 +232,7 @@ const Signup = () => {
           <span style={{marginLeft:"10px"}}>이름</span><span style={{color:"red"}}>*</span>
         </div>
         <div style={{display:"inline-block", marginLeft:"113px"}}>
-          <input></input>
+          <input id='member_name' name='member_name' value={member_name} onChange={onChange}></input>
         </div>
       </div>
       <hr />
@@ -192,7 +241,7 @@ const Signup = () => {
           <span style={{marginLeft:"10px"}}>주소</span><span style={{color:"red"}}>*</span>
         </div>
         <div style={{display:"inline-block", marginLeft:"113px", marginRight:"10px"}}>
-          <input style={{width:"60px"}}></input>
+          <input style={{width:"60px"}} id='member_addr1' name='member_addr1' value={member_addr1} onChange={onChange}></input>
         </div>
         <span style={{}}>-</span>
         <div style={{display:"inline-block", marginLeft:"10px"}}>
@@ -207,12 +256,12 @@ const Signup = () => {
         </div>
         <div style={{marginTop:"10px", marginBottom:"10px"}}>
           <div style={{display:"inline-block", marginLeft:"157px"}}>
-            <input style={{width:"280px"}}></input>
+            <input style={{width:"280px"}} id='member_addr2' name='member_addr2' value={member_addr2} onChange={onChange}></input>
           </div>
         </div>
         <div style={{marginTop:"10px", marginBottom:"20px"}}>
           <div style={{display:"inline-block", marginLeft:"157px"}}>
-            <input style={{width:"280px"}}></input>
+            <input style={{width:"280px"}} id='member_addr3' name='member_addr3' value={member_addr3} onChange={onChange}></input>
           </div>
         </div>
       </div>
@@ -222,15 +271,15 @@ const Signup = () => {
           <span style={{marginLeft:"10px"}}>휴대전화</span><span style={{color:"red"}}>*</span>
         </div>
         <div style={{display:"inline-block", marginLeft:"85px", marginRight:"10px"}}>
-          <input style={{width:"70px"}}></input>
+          <input name='ph1' style={{width:"70px"}} value={ph1} onChange={onChange}></input>
         </div>
         <span>-</span>
         <div style={{display:"inline-block", marginLeft:"10px", marginRight:"10px"}}>
-          <input style={{width:"70px"}}></input>
+          <input name='ph2' style={{width:"70px"}} value={ph2} onChange={onChange}></input>
         </div>
         <span>-</span>
         <div style={{display:"inline-block", marginLeft:"10px"}}>
-          <input style={{width:"70px"}}></input>
+          <input name='ph3' style={{width:"70px"}} value={ph3} onChange={onChange}></input>
         </div>
       </div>
       <hr />
@@ -272,7 +321,7 @@ const Signup = () => {
           <span style={{marginLeft:"10px"}}>생년월일</span>
         </div>
         <div style={{display:"inline-block", marginLeft:"100px"}}>
-          <input style={{width:"70px"}} /> 년 <input style={{width:"40px"}} /> 월 <input style={{width:"40px"}} /> 일
+          <input id='member_age' name='member_age' style={{width:"70px"}} /> 년 <input style={{width:"40px"}} /> 월 <input style={{width:"40px"}} /> 일
         </div>
       </div>
       <hr />
@@ -392,7 +441,7 @@ const Signup = () => {
           <span>동의함</span>
       </div>
       <div style={joinButton}>
-        <button type='button' style={{marginLeft:"10px",marginBottom:"10px",width:"120px",height:"50px",border:"none",backgroundColor:"black",color:"white",cursor:"pointer"}}>회원가입</button>
+        <button onClick={handleSubmit} type='button' style={{marginLeft:"10px",marginBottom:"10px",width:"120px",height:"50px",border:"none",backgroundColor:"black",color:"white",cursor:"pointer"}}>회원가입</button>
         <Link to="/"><button type='button' style={{marginLeft:"10px",marginBottom:"10px",width:"120px",height:"50px",border:"none",backgroundColor:"gray",color:"white",cursor:"pointer"}}>회원가입 취소</button></Link>
       </div>
     </div>
