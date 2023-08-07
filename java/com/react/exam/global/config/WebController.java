@@ -1,4 +1,4 @@
-package com.react.exam.config;
+package com.react.exam.global.config;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
