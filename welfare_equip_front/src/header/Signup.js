@@ -42,9 +42,13 @@ const Signup = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({user_id:member_id}), // JSON 데이터를 문자열로 변환하여 body에 설정합니다.
+      body: JSON.stringify({userId:member_id,
+                            password:member_pw,
+                            }), // JSON 데이터를 문자열로 변환하여 body에 설정합니다.
     })
     .then(res => {
+      console.log("res: ", res);
+
       if(res.status === 200) {
           alert("회원가입이 완료되었습니다.")
           window.location.href = "/"
@@ -136,7 +140,7 @@ const Signup = () => {
   
 
   return (
-  console.log(member_id),
+  // console.log(member_id),
     <>
     <form onSubmit={handleSubmit}>
     <div style={style}>
