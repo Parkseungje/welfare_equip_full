@@ -46,15 +46,13 @@ const Signup = () => {
                             password:member_pw,
                             }), // JSON 데이터를 문자열로 변환하여 body에 설정합니다.
     })
-    .then(res => {
-      console.log("res: ", res);
-
-      if(res.status === 200) {
-          alert("회원가입이 완료되었습니다.")
+    .then(res => res.json())
+    .then(data => {
+      if(data.statusCode === 200) {
+          alert(data.message);
           window.location.href = "/"
-      }else if(res.status === 400) {
-          alert("로그인이 필요한 서비스 입니다.")
-          
+      }else if(data.statusCode === 400) {
+          alert(data.message);
       }
   }).catch(err => console.log("err: ", err))
   };
