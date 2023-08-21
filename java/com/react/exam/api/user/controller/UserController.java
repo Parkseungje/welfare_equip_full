@@ -3,7 +3,6 @@ package com.react.exam.api.user.controller;
 import com.react.exam.api.user.dto.UserRequest;
 import com.react.exam.api.user.entity.User;
 import com.react.exam.api.user.service.UserService;
-import com.react.exam.global.config.Message;
 import com.react.exam.global.enums.StatusEnum;
 import com.react.exam.global.service.ResponseService;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.nio.charset.Charset;
 
 @RequestMapping("/user")
 @RestController

@@ -1,12 +1,14 @@
 package com.react.exam.api.user.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class UserRequest {
 
     String userId;
@@ -26,4 +28,5 @@ public class UserRequest {
     String deldate;
     int regflag;
     String uImgName;
+
 }
