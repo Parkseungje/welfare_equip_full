@@ -9,5 +9,5 @@ public class WebController implements ErrorController {
     @GetMapping({"/", "/error"})
     public String index() {
         return "index.html";
-    }
+    } //리액트 virtualdom사용시 에러 방지
 }

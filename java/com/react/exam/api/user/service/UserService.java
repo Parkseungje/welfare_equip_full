@@ -14,10 +14,17 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public User saveUser(User user) {
+    public void saveUser(User user) {
         validateDuplicateMember(user);
+        userRepository.save(user);
+    }
 
-        return userRepository.save(user);
+    public User findByUserId(String user_id) {
+        User userObj = userRepository.findByUserId(user_id);
+        if (userObj != null) {
+            throw new IllegalStateException("이미 가입된 회원입니다.");
+        }
+        return userObj;
     }
 
     private void validateDuplicateMember(User user) {
@@ -26,4 +33,5 @@ public class UserService {
             throw new IllegalStateException("이미 가입된 회원입니다.");
         }
     }
+
 }

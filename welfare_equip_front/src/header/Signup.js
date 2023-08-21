@@ -53,6 +53,8 @@ const Signup = () => {
           window.location.href = "/"
       }else if(data.statusCode === 400) {
           alert(data.message);
+      }else{
+        alert(data.message);
       }
   }).catch(err => console.log("err: ", err))
   };
