@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import PopupDom from './popup/PopupDom';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import PopupPostCode from './popup/PopupPostCode';
@@ -8,7 +9,6 @@ const Signup = () => {
 
   const [inputs, setInputs] = useState({
     member_div: "",
-    member_id: "",
     member_pw: "",
     password_answer: "",
     member_name: "",
@@ -20,8 +20,12 @@ const Signup = () => {
     ph3: "",
 })
 
+  const [member_id, setMemberId] = useState('');
+  const [isIdAvailable, setIsIdAvailable] = useState(true);
+  const [resMessage, setResMessage] = useState('');
+
   const {
-      member_div, member_id, member_pw, password_answer,
+      member_div, member_pw, password_answer,
       member_name, member_addr1, member_addr2, member_addr3,
       ph1, ph2, ph3
   } = inputs;
@@ -31,6 +35,23 @@ const Signup = () => {
         ...inputs,
         [e.target.name]: e.target.value
     });
+  };
+
+  const handleIdChange = async (e) => {
+
+    const member_id = e.target.value;
+    setMemberId(member_id);
+
+    try {
+      const response = await axios.post("/user/check_duplicate", { userId : member_id });
+  
+      setIsIdAvailable(response.data.statusCode);
+      setResMessage(response.data.message);
+    } catch (error) {
+      setIsIdAvailable(error.response.data.statusCode);
+      setResMessage(error.response.data.message);
+    }
+
   };
 
   const handleSubmit = (e) => {
@@ -140,7 +161,7 @@ const Signup = () => {
   
 
   return (
-  // console.log(member_id),
+   //console.log("member_id: ", member_id),
     <>
     <form onSubmit={handleSubmit}>
     <div style={style}>
@@ -177,9 +198,14 @@ const Signup = () => {
           <span style={{marginLeft:"10px"}}>아이디</span><span style={{color:"red"}}>*</span>
         </div>
         <div style={{display:"inline-block", marginLeft:"100px"}}>
-          <input id="member_id" name='member_id' value={member_id} onChange={onChange}></input>
+          <input id="member_id" name='member_id' value={member_id} onChange={handleIdChange}></input>
         </div>
       </div>
+      {member_id && (
+        <p style={{color: isIdAvailable === 200 ? 'blue' : 'red'}}>
+          {resMessage}
+        </p>
+      )}
       <hr />
       <div style={{marginTop:"20px", marginBottom:"20px"}}>
         <div style={{display:"inline-block"}}>
